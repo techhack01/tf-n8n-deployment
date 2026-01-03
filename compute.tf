@@ -14,10 +14,12 @@ data "aws_ami" "amazon_linux" {
   }
 }
 
-# Key pair for EC2 access
+# Key pair for EC2 access (optional)
 resource "aws_key_pair" "n8n" {
+  count = var.create_ssh_key ? 1 : 0
+  
   key_name   = "${var.project_name}-key"
-  public_key = file(var.ssh_public_key_path)
+  public_key = var.ssh_public_key_content
 }
 
 # Security Group for EC2
@@ -57,7 +59,7 @@ resource "aws_security_group" "ec2_n8n" {
 resource "aws_instance" "n8n" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = "t3.micro"
-  key_name               = aws_key_pair.n8n.key_name
+  key_name               = var.create_ssh_key ? aws_key_pair.n8n[0].key_name : null
   vpc_security_group_ids = [aws_security_group.ec2_n8n.id]
   subnet_id              = aws_subnet.public[0].id
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
