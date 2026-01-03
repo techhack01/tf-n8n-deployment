@@ -28,24 +28,7 @@ variable "certificate_arn" {
   default     = ""
 }
 
-variable "use_rds" {
-  description = "Use RDS PostgreSQL database (costs ~$12-15/month). Set to false to use SQLite for ultra-low cost."
-  type        = bool
-  default     = false
-}
 
-variable "db_username" {
-  description = "Database username (only used if use_rds is true)"
-  type        = string
-  default     = "n8n"
-}
-
-variable "db_password" {
-  description = "Database password (only used if use_rds is true)"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
 
 variable "n8n_encryption_key" {
   description = "Encryption key for n8n (32 character string)"

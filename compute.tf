@@ -63,11 +63,6 @@ resource "aws_instance" "n8n" {
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
 
   user_data = base64encode(templatefile("${path.module}/user_data.sh", {
-    use_rds        = var.use_rds
-    db_host        = var.use_rds ? aws_db_instance.n8n[0].endpoint : ""
-    db_name        = var.use_rds ? aws_db_instance.n8n[0].db_name : ""
-    db_user        = var.use_rds ? aws_db_instance.n8n[0].username : ""
-    db_password    = var.use_rds ? var.db_password : ""
     encryption_key = var.n8n_encryption_key
   }))
 

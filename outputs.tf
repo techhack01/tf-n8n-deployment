@@ -13,15 +13,9 @@ output "ssh_command" {
   value       = "ssh -i ~/.ssh/id_rsa ec2-user@${aws_eip.n8n.public_ip}"
 }
 
-output "database_endpoint" {
-  description = "RDS instance endpoint (only if using RDS)"
-  value       = var.use_rds ? aws_db_instance.n8n[0].endpoint : "Using SQLite (local database)"
-  sensitive   = true
-}
-
 output "database_type" {
   description = "Database type being used"
-  value       = var.use_rds ? "PostgreSQL (RDS)" : "SQLite (local)"
+  value       = "SQLite (local file database)"
 }
 
 output "ssm_connect_command" {

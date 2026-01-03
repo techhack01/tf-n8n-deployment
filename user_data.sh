@@ -22,34 +22,7 @@ chmod +x /usr/local/bin/docker-compose
 mkdir -p /opt/n8n
 cd /opt/n8n
 
-# Create docker-compose.yml based on database choice
-%{ if use_rds }
-cat > docker-compose.yml << EOF
-version: '3.8'
-services:
-  n8n:
-    image: n8nio/n8n:latest
-    restart: unless-stopped
-    ports:
-      - "5678:5678"
-    environment:
-      - DB_TYPE=postgresdb
-      - DB_POSTGRESDB_HOST=${db_host}
-      - DB_POSTGRESDB_PORT=5432
-      - DB_POSTGRESDB_DATABASE=${db_name}
-      - DB_POSTGRESDB_USER=${db_user}
-      - DB_POSTGRESDB_PASSWORD=${db_password}
-      - N8N_ENCRYPTION_KEY=${encryption_key}
-      - N8N_HOST=0.0.0.0
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
-    volumes:
-      - n8n_data:/home/node/.n8n
-
-volumes:
-  n8n_data:
-EOF
-%{ else }
+# Create docker-compose.yml for SQLite (local database)
 cat > docker-compose.yml << EOF
 version: '3.8'
 services:
@@ -69,7 +42,6 @@ services:
 volumes:
   n8n_data:
 EOF
-%{ endif }
 
 # Start n8n
 docker-compose up -d

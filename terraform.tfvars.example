@@ -12,11 +12,6 @@ ssh_public_key_path = "~/.ssh/id_rsa.pub"  # Path to your SSH public key
 
 # Cost Optimization Settings
 single_az_deployment = true   # Deploy in single AZ to reduce costs
-use_rds = false              # Set to true to use PostgreSQL RDS (~$12-15/month extra)
-
-# Database Configuration (only needed if use_rds = true)
-db_username = "n8n"
-db_password = "your-secure-database-password-here"
 
 # n8n Configuration
 n8n_encryption_key = "your-32-character-encryption-key-here"
