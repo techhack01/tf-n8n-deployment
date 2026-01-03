@@ -16,7 +16,7 @@ output "ssh_command" {
 output "database_endpoint" {
   description = "RDS instance endpoint (only if using RDS)"
   value       = var.use_rds ? aws_db_instance.n8n[0].endpoint : "Using SQLite (local database)"
-  sensitive   = var.use_rds
+  sensitive   = true
 }
 
 output "database_type" {
