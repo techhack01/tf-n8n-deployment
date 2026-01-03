@@ -9,8 +9,8 @@ output "n8n_url" {
 }
 
 output "ssh_command" {
-  description = "SSH command to connect to the instance"
-  value       = "ssh -i ~/.ssh/id_rsa ec2-user@${aws_eip.n8n.public_ip}"
+  description = "SSH command to connect to the instance (only if SSH key was created)"
+  value       = var.create_ssh_key ? "ssh -i ~/.ssh/id_rsa ec2-user@${aws_eip.n8n.public_ip}" : "SSH key not configured - use SSM Session Manager instead"
 }
 
 output "database_type" {

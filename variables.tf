@@ -48,8 +48,14 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
-variable "ssh_public_key_path" {
-  description = "Path to SSH public key file"
+variable "ssh_public_key_content" {
+  description = "SSH public key content (paste the content of your ~/.ssh/id_rsa.pub file here)"
   type        = string
-  default     = "~/.ssh/id_rsa.pub"
+  default     = ""
+}
+
+variable "create_ssh_key" {
+  description = "Whether to create SSH key pair for EC2 access"
+  type        = bool
+  default     = false
 }
