@@ -30,6 +30,12 @@ variable "certificate_arn" {
 
 
 
+variable "single_az_deployment" {
+  description = "Deploy in single AZ to reduce costs"
+  type        = bool
+  default     = true
+}
+
 variable "n8n_encryption_key" {
   description = "Encryption key for n8n (32 character string)"
   type        = string
